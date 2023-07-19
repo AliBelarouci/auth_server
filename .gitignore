@@ -1,0 +1,9 @@
+node_modules/
+dist/
+mysqlconf/
+mysql_data/
+
+.env
+.env.development
+.production
+.env.production
