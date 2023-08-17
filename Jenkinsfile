@@ -2,24 +2,24 @@ pipeline {
     agent any
     
     stages {
-             stage('Checkout0') {
-            steps {
-                // Checkout your source code from the repository
-                // Checkout your source code from the repository
-                checkout([$class: 'GitSCM', 
-                    branches: [[name: '*/main']], // or '*/master' depending on your default branch
-                    userRemoteConfigs: [[url: 'https://github.com/AliBelarouci/goLang.git']]])
-            }
+
+      stage('Checkout') {
+    steps {
+        script {
+            // Define the credential ID
+            def credentialsId = 'github' // Replace with the actual ID of your Jenkins credential
+            
+            // Checkout your source code from the repository using credentials
+            checkout([$class: 'GitSCM', 
+                branches: [[name: '*/main']], // or '*/master' depending on your default branch
+                userRemoteConfigs: [[
+                    url: 'https://github.com/AliBelarouci/auth_service.git',
+                    credentialsId: credentialsId // Use the defined credentials ID
+                ]]])
         }
-        stage('Checkout') {
-            steps {
-                // Checkout your source code from the repository
-                // Checkout your source code from the repository
-                checkout([$class: 'GitSCM', 
-                    branches: [[name: '*/main']], // or '*/master' depending on your default branch
-                    userRemoteConfigs: [[url: 'https://github.com/AliBelarouci/auth_service.git']]])
-            }
-        }
+    }
+}
+
         
         stage('Install Dependencies') {
             steps {
