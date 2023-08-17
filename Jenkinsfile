@@ -2,6 +2,15 @@ pipeline {
     agent any
     
     stages {
+             stage('Checkout0') {
+            steps {
+                // Checkout your source code from the repository
+                // Checkout your source code from the repository
+                checkout([$class: 'GitSCM', 
+                    branches: [[name: '*/main']], // or '*/master' depending on your default branch
+                    userRemoteConfigs: [[url: 'https://github.com/AliBelarouci/goLang.git']]])
+            }
+        }
         stage('Checkout') {
             steps {
                 // Checkout your source code from the repository
