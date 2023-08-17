@@ -26,10 +26,6 @@ pipeline {
             }
         }
         
-        stage('Deploy') {
-            steps {
-                // Implement deployment steps here
-            }
-        }
+       
     }
 }
