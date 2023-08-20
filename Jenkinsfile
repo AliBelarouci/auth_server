@@ -1,13 +1,15 @@
 pipeline {
     agent any
-    
+    tools{
+        nodejs 'node18'
+    }
     stages {
 
       stage('Checkout') {
     steps {
         script {
             // Define the credential ID
-            def credentialsId = 'github' // Replace with the actual ID of your Jenkins credential
+            def credentialsId = 'PAT_jenkins' // Replace with the actual ID of your Jenkins credential
             
             // Checkout your source code from the repository using credentials
             checkout([$class: 'GitSCM', 
