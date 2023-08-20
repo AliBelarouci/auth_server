@@ -24,7 +24,7 @@ pipeline {
             checkout([$class: 'GitSCM', 
                 branches: [[name: '*/main']], // or '*/master' depending on your default branch
                 userRemoteConfigs: [[
-                    url: 'https://github.com/AliBelarouci/auth_service.git',
+                    url: 'https://github.com/AliBelarouci/auth_server.git',
                     credentialsId: credentialsId // Use the defined credentials ID
                 ]]])
         }
