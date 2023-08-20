@@ -3,6 +3,15 @@ pipeline {
     tools{
         nodejs 'node18'
     }
+    environment {
+        APP_NAME = "auth"
+        RELEASE = "1.0.0"
+        DOCKER_USER = "alisoufnet"
+        DOCKER_PASS = 'docker'
+        IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
+        IMAGE_NAME = "${DOCKER_USER}/${APP_NAME}:${IMAGE_TAG}"
+        //JENKINS_API_TOKEN = credentials("JENKINS_API_TOKEN")
+    }
     stages {
 
       stage('Checkout') {
@@ -30,11 +39,21 @@ pipeline {
             }
         }
         
-        stage('Run Tests') {
+           stage("Build & Push Docker Image") {
             steps {
-                // Run tests for your NestJS application
-                sh 'npm test'
+                script {
+                    sh 'docker --version'
+                    docker.withRegistry('',DOCKER_PASS) {
+                        docker_image = docker.build("${IMAGE_NAME}")
+                    }
+
+                    docker.withRegistry('',DOCKER_PASS) {
+                        docker_image.push("${IMAGE_TAG}")
+                        docker_image.push('latest')
+                    }
+                }
             }
+
         }
         
        
